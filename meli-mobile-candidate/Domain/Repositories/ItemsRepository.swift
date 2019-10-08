@@ -1,6 +1,6 @@
 import Foundation
 
 protocol ItemsRepository {
-    func find() -> [ItemDataResponse]
-    func put(_ items: [ItemDataResponse])
+    func find() -> [Item]
+    func put(_ items: [Item])
 }

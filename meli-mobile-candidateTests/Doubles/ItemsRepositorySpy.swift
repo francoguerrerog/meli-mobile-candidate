@@ -5,12 +5,12 @@ class ItemsRepositorySpy: ItemsRepository {
     var hasFind = false
     var hasPut = false
     
-    func find() -> [ItemDataResponse] {
+    func find() -> [Item] {
         hasFind = true
         return []
     }
     
-    func put(_ items: [ItemDataResponse]) {
+    func put(_ items: [Item]) {
         hasPut = true
     }
 }

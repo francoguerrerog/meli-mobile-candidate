@@ -6,9 +6,9 @@ class ApiSearchItemsRepository: SearchItemsRepository {
     private let urlSession = URLSession.shared
     
     func search(filters: [QueryFilter]) -> Single<SearchDataResponse> {
-        return Observable<SearchDataResponse>.create { observer in
+        return Single<SearchDataResponse>.create { single in
             guard let url = self.builSearchdUrlWithParameters(filters) else {
-                return observer.onError(ApiError.urlError) as! Disposable
+                return single(.error(ApiError.urlError)) as! Disposable
             }
             
             var urlRequest = URLRequest(url: url,
@@ -19,7 +19,7 @@ class ApiSearchItemsRepository: SearchItemsRepository {
             
             let task = self.urlSession.dataTask(with: urlRequest) { (data, response, error) -> Void in
                 guard error == nil else {
-                    return observer.onError(ApiError.fetchingError)
+                    return single(.error(ApiError.fetchingError))
                 }
                 
                 let formatter = DateFormatter()
@@ -30,17 +30,24 @@ class ApiSearchItemsRepository: SearchItemsRepository {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .formatted(formatter)
                 
+//                do {
+//                    let responseObject = try decoder.decode(SearchDataResponse.self, from: data!)
+//                    print(responseObject)
+//                } catch {
+//                    print(error)
+//                }
+                
                 guard let data = data,
                     let responseObject = try? decoder.decode(SearchDataResponse.self, from: data) else {
-                        return observer.onError(ApiError.fetchingError)
+                        return single(.error(ApiError.fetchingError))
                 }
                 
-                return observer.onNext(responseObject)
+                return single(.success(responseObject))
             }
             
             task.resume()
             return Disposables.create { }
-        }.asSingle()
+        }
     }
     
     private func builSearchdUrlWithParameters(_ parameters: [QueryFilter]) -> URL? {

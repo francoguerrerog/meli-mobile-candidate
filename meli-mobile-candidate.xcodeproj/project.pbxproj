@@ -46,6 +46,12 @@
 		2D350ED9234C46FB0050F475 /* GetItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350ED8234C46FB0050F475 /* GetItems.swift */; };
 		2D350EDB234C47390050F475 /* GetSearchConfigurationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EDA234C47390050F475 /* GetSearchConfigurationsTests.swift */; };
 		2D350EDD234C497B0050F475 /* GetSearchConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EDC234C497B0050F475 /* GetSearchConfigurations.swift */; };
+		2D350EDF234C513C0050F475 /* Seller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EDE234C513C0050F475 /* Seller.swift */; };
+		2D350EE1234C52600050F475 /* Installments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EE0234C52600050F475 /* Installments.swift */; };
+		2D350EE3234C52EE0050F475 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EE2234C52EE0050F475 /* Address.swift */; };
+		2D350EE5234C534E0050F475 /* Shipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EE4234C534E0050F475 /* Shipping.swift */; };
+		2D350EE7234C53E00050F475 /* SellerAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EE6234C53E00050F475 /* SellerAddress.swift */; };
+		2D350EE9234C54B40050F475 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EE8234C54B40050F475 /* Attributes.swift */; };
 		2D4372BC23493173001EB1EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4372BB23493173001EB1EC /* AppDelegate.swift */; };
 		2D4372BE23493173001EB1EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4372BD23493173001EB1EC /* ViewController.swift */; };
 		2D4372C123493173001EB1EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D4372BF23493173001EB1EC /* Main.storyboard */; };
@@ -108,6 +114,12 @@
 		2D350ED8234C46FB0050F475 /* GetItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetItems.swift; sourceTree = "<group>"; };
 		2D350EDA234C47390050F475 /* GetSearchConfigurationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSearchConfigurationsTests.swift; sourceTree = "<group>"; };
 		2D350EDC234C497B0050F475 /* GetSearchConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSearchConfigurations.swift; sourceTree = "<group>"; };
+		2D350EDE234C513C0050F475 /* Seller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seller.swift; sourceTree = "<group>"; };
+		2D350EE0234C52600050F475 /* Installments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Installments.swift; sourceTree = "<group>"; };
+		2D350EE2234C52EE0050F475 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		2D350EE4234C534E0050F475 /* Shipping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shipping.swift; sourceTree = "<group>"; };
+		2D350EE6234C53E00050F475 /* SellerAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerAddress.swift; sourceTree = "<group>"; };
+		2D350EE8234C54B40050F475 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		2D4372B823493173001EB1EC /* meli-mobile-candidate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meli-mobile-candidate.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D4372BB23493173001EB1EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D4372BD23493173001EB1EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +200,12 @@
 				2D350EA1234BF9B60050F475 /* QueryFilter.swift */,
 				2D350EA5234BFA030050F475 /* SearchResponse.swift */,
 				2D350EA9234BFA3B0050F475 /* SearchConfigurations.swift */,
+				2D350EDE234C513C0050F475 /* Seller.swift */,
+				2D350EE0234C52600050F475 /* Installments.swift */,
+				2D350EE2234C52EE0050F475 /* Address.swift */,
+				2D350EE4234C534E0050F475 /* Shipping.swift */,
+				2D350EE6234C53E00050F475 /* SellerAddress.swift */,
+				2D350EE8234C54B40050F475 /* Attributes.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -515,11 +533,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D350EC3234C3B0F0050F475 /* SellerAddressDataResponse.swift in Sources */,
+				2D350EE1234C52600050F475 /* Installments.swift in Sources */,
 				2D350EAA234BFA3B0050F475 /* SearchConfigurations.swift in Sources */,
 				2D350EC5234C3B310050F475 /* CountryDataResponse.swift in Sources */,
 				2D350EA2234BF9B60050F475 /* QueryFilter.swift in Sources */,
 				2D350E8E234935670050F475 /* InMemoryItemsRepository.swift in Sources */,
 				2D350EC9234C3B6A0050F475 /* CityDataResponse.swift in Sources */,
+				2D350EDF234C513C0050F475 /* Seller.swift in Sources */,
 				2D350E94234936CA0050F475 /* ItemListViewModel.swift in Sources */,
 				2D350E88234935280050F475 /* SearchItems.swift in Sources */,
 				2D350E8B2349354B0050F475 /* ItemsRepository.swift in Sources */,
@@ -530,12 +550,16 @@
 				2D350EAC234BFC2A0050F475 /* InMemorySearchConfigurationsRepository.swift in Sources */,
 				2D350EA4234BF9E50050F475 /* SearchItemsRepository.swift in Sources */,
 				2D350EA8234BFA240050F475 /* SearchConfigurationsRepository.swift in Sources */,
+				2D350EE5234C534E0050F475 /* Shipping.swift in Sources */,
+				2D350EE7234C53E00050F475 /* SellerAddress.swift in Sources */,
 				2D350ECB234C3CDB0050F475 /* AttributesDataResponse.swift in Sources */,
 				2D350ED9234C46FB0050F475 /* GetItems.swift in Sources */,
 				2D350EB4234C2E170050F475 /* SearchDataResponse.swift in Sources */,
 				2D350E86234935110050F475 /* Item.swift in Sources */,
 				2D350EC1234C39710050F475 /* ShippingDataResponse.swift in Sources */,
 				2D350EAE234BFD8F0050F475 /* ApiSearchItemsRepository.swift in Sources */,
+				2D350EE3234C52EE0050F475 /* Address.swift in Sources */,
+				2D350EE9234C54B40050F475 /* Attributes.swift in Sources */,
 				2D350ECF234C3E210050F475 /* SortDataResponse.swift in Sources */,
 				2D350EBF234C383A0050F475 /* AddressDataResponse.swift in Sources */,
 				2D350EB9234C2F180050F475 /* ItemDataResponse.swift in Sources */,

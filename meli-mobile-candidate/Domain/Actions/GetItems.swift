@@ -1,7 +1,7 @@
 import Foundation
 
 protocol GetItems {
-    func execute() -> [ItemDataResponse]
+    func execute() -> [Item]
 }
 
 class GetItemsDefault: GetItems {
@@ -11,7 +11,7 @@ class GetItemsDefault: GetItems {
         self.itemsRepository = itemsRepository
     }
     
-    func execute() -> [ItemDataResponse] {
+    func execute() -> [Item] {
         return itemsRepository.find()
     }
 }

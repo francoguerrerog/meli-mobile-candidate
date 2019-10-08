@@ -4,7 +4,7 @@ struct ItemDataResponse: Codable {
     let id: String?
     let siteId: String?
     let title: String?
-    let seller: SellerDataResponse?
+    let seller: SellerDataResponse
     let price: Double?
     let currencyId: String?
     let availableQuantity: Int?
@@ -15,11 +15,11 @@ struct ItemDataResponse: Codable {
     let permalink: String?
     let thumbnail: String?
     let acceptsMercadopago: Bool?
-    let installments: InstallmentsDataResponse?
-    let address: AddressDataResponse?
-    let shipping: ShippingDataResponse?
-    let sellerAddress: SellerAddressDataResponse?
-    let attributes: [AttributesDataResponse]?
+    let installments: InstallmentsDataResponse
+    let address: AddressDataResponse
+    let shipping: ShippingDataResponse
+    let sellerAddress: SellerAddressDataResponse
+    let attributes: [AttributesDataResponse]
     let originalPrice: Double?
     let categoryId: String?
     let officialStoreId: Int?

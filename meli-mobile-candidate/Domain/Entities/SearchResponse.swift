@@ -1,10 +1,6 @@
 import Foundation
 
 struct SearchResponse {
-    
     let items: [Item]
-    
-    init() {
-        items = []
-    }
+    let searchConfigurations: SearchConfigurations
 }
