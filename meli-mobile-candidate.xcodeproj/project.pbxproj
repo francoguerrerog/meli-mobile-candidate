@@ -52,6 +52,8 @@
 		2D350EE5234C534E0050F475 /* Shipping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EE4234C534E0050F475 /* Shipping.swift */; };
 		2D350EE7234C53E00050F475 /* SellerAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EE6234C53E00050F475 /* SellerAddress.swift */; };
 		2D350EE9234C54B40050F475 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EE8234C54B40050F475 /* Attributes.swift */; };
+		2D350EEB234C59FB0050F475 /* GetItemDetailsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EEA234C59FB0050F475 /* GetItemDetailsTests.swift */; };
+		2D350EED234C5B660050F475 /* GetItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EEC234C5B660050F475 /* GetItemDetails.swift */; };
 		2D4372BC23493173001EB1EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4372BB23493173001EB1EC /* AppDelegate.swift */; };
 		2D4372BE23493173001EB1EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4372BD23493173001EB1EC /* ViewController.swift */; };
 		2D4372C123493173001EB1EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D4372BF23493173001EB1EC /* Main.storyboard */; };
@@ -120,6 +122,8 @@
 		2D350EE4234C534E0050F475 /* Shipping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shipping.swift; sourceTree = "<group>"; };
 		2D350EE6234C53E00050F475 /* SellerAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellerAddress.swift; sourceTree = "<group>"; };
 		2D350EE8234C54B40050F475 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
+		2D350EEA234C59FB0050F475 /* GetItemDetailsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetItemDetailsTests.swift; sourceTree = "<group>"; };
+		2D350EEC234C5B660050F475 /* GetItemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetItemDetails.swift; sourceTree = "<group>"; };
 		2D4372B823493173001EB1EC /* meli-mobile-candidate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meli-mobile-candidate.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D4372BB23493173001EB1EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D4372BD23493173001EB1EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +193,7 @@
 				2D350E87234935280050F475 /* SearchItems.swift */,
 				2D350ED8234C46FB0050F475 /* GetItems.swift */,
 				2D350EDC234C497B0050F475 /* GetSearchConfigurations.swift */,
+				2D350EEC234C5B660050F475 /* GetItemDetails.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -252,6 +257,7 @@
 				2D350E98234BE46C0050F475 /* SearchItemsTests.swift */,
 				2D350ED6234C45040050F475 /* GetItemsTests.swift */,
 				2D350EDA234C47390050F475 /* GetSearchConfigurationsTests.swift */,
+				2D350EEA234C59FB0050F475 /* GetItemDetailsTests.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -542,6 +548,7 @@
 				2D350EDF234C513C0050F475 /* Seller.swift in Sources */,
 				2D350E94234936CA0050F475 /* ItemListViewModel.swift in Sources */,
 				2D350E88234935280050F475 /* SearchItems.swift in Sources */,
+				2D350EED234C5B660050F475 /* GetItemDetails.swift in Sources */,
 				2D350E8B2349354B0050F475 /* ItemsRepository.swift in Sources */,
 				2D4372BE23493173001EB1EC /* ViewController.swift in Sources */,
 				2D350EBB234C36770050F475 /* SellerDataResponse.swift in Sources */,
@@ -585,6 +592,7 @@
 				2D350EA0234BF8FC0050F475 /* ItemsRepositorySpy.swift in Sources */,
 				2D350E9C234BF8390050F475 /* SearchItemsRepositorySpy.swift in Sources */,
 				2D350E9E234BF8D30050F475 /* SearchConfigurationsRepositorySpy.swift in Sources */,
+				2D350EEB234C59FB0050F475 /* GetItemDetailsTests.swift in Sources */,
 				2D350ED7234C45040050F475 /* GetItemsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
