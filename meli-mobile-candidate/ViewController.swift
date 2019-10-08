@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  meli-mobile-candidate
-//
-//  Created by Francisco Guerrero on 05/10/2019.
-//  Copyright © 2019 Francisco Guerrero. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
@@ -13,6 +5,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let apiRepo = ApiSearchItemsRepository()
+        let query = QueryFilter(key: "q", value: "moto")
+        let category = QueryFilter(key: "category", value: "MLA1055")
+        _ = apiRepo.search(filters: [query, category]).subscribe(onSuccess: { (response) in
+            print(response)
+        })
     }
 
 
