@@ -30,17 +30,19 @@ class ApiSearchItemsRepository: SearchItemsRepository {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .formatted(formatter)
                 
-//                do {
-//                    let responseObject = try decoder.decode(SearchDataResponse.self, from: data!)
-//                    print(responseObject)
-//                } catch {
-//                    print(error)
-//                }
-                
-                guard let data = data,
-                    let responseObject = try? decoder.decode(SearchDataResponse.self, from: data) else {
-                        return single(.error(ApiError.fetchingError))
+                var responseObject: SearchDataResponse!
+                do {
+                    responseObject = try decoder.decode(SearchDataResponse.self, from: data!)
+                    print(responseObject)
+                } catch {
+                    print(error)
+                    return single(.error(ApiError.fetchingError))
                 }
+                
+//                guard let data = data,
+//                    let responseObject = try? decoder.decode(SearchDataResponse.self, from: data) else {
+//                        return single(.error(ApiError.fetchingError))
+//                }
                 
                 return single(.success(responseObject))
             }
@@ -64,11 +66,5 @@ class ApiSearchItemsRepository: SearchItemsRepository {
         
         return urlComponents.url
     
-    }
-}
-
-extension URLComponents {
-    mutating func setQueryItems(with parameters: [String: String]) {
-        self.queryItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
     }
 }

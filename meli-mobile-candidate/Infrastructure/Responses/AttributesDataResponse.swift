@@ -1,7 +1,7 @@
 import Foundation
 
 struct AttributesDataResponse: Codable {
-    let valueStruct: String?
+    let valueStruct: ValueStruct?
     let values: [ValuesDataResponse]?
     let source: Int?
     let attributeGroupId: String?

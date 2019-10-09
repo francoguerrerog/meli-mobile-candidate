@@ -1,7 +1,7 @@
 import Foundation
 
 struct Attributes {
-    let valueStruct: String
+    let valueStruct: ValueStruct
     let values: [ValuesDataResponse]
     let source: Int
     let attributeGroupId: String
@@ -12,7 +12,7 @@ struct Attributes {
     let valueName: String
     
     init(attributesDataResponse: AttributesDataResponse) {
-        self.valueStruct = attributesDataResponse.valueStruct ?? ""
+        self.valueStruct = attributesDataResponse.valueStruct ?? ValueStruct(number: 0, unit: "")
         self.values = attributesDataResponse.values ?? []
         self.source = attributesDataResponse.source ?? 0
         self.attributeGroupId = attributesDataResponse.attributeGroupId ?? ""

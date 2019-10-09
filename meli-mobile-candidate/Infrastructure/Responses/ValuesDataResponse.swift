@@ -3,7 +3,7 @@ import Foundation
 struct ValuesDataResponse: Codable {
     let id: String?
     let name: String?
-    let struc: String?
+    let struc: ValueStruct?
     let source: Int?
     
     enum CodingKeys: String, CodingKey {

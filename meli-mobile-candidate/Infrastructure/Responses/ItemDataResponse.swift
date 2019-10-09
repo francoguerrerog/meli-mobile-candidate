@@ -15,7 +15,7 @@ struct ItemDataResponse: Codable {
     let permalink: String?
     let thumbnail: String?
     let acceptsMercadopago: Bool?
-    let installments: InstallmentsDataResponse
+    let installments: InstallmentsDataResponse?
     let address: AddressDataResponse
     let shipping: ShippingDataResponse
     let sellerAddress: SellerAddressDataResponse
