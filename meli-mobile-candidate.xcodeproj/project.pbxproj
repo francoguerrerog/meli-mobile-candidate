@@ -72,6 +72,10 @@
 		2D4372C123493173001EB1EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D4372BF23493173001EB1EC /* Main.storyboard */; };
 		2D4372C323493177001EB1EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D4372C223493177001EB1EC /* Assets.xcassets */; };
 		2D4372C623493177001EB1EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D4372C423493177001EB1EC /* LaunchScreen.storyboard */; };
+		2D51E50F234E6E25002376F5 /* FilterCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D51E50D234E6E25002376F5 /* FilterCellView.swift */; };
+		2D51E510234E6E25002376F5 /* FilterCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D51E50E234E6E25002376F5 /* FilterCellView.xib */; };
+		2D51E514234E784A002376F5 /* FilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D51E512234E784A002376F5 /* FilterHeaderView.swift */; };
+		2D51E516234E787C002376F5 /* FilterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D51E515234E787C002376F5 /* FilterHeaderView.xib */; };
 		84D1BF597011DA9410A31922 /* Pods_meli_mobile_candidateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8487259E392D77392A122A10 /* Pods_meli_mobile_candidateTests.framework */; };
 		A57B90E16F4ADC673B4EB2B5 /* Pods_meli_mobile_candidate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 886977B130588E8C77F0A594 /* Pods_meli_mobile_candidate.framework */; };
 /* End PBXBuildFile section */
@@ -159,6 +163,10 @@
 		2D4372C723493177001EB1EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D4372CC23493177001EB1EC /* meli-mobile-candidateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "meli-mobile-candidateTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D4372D223493177001EB1EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D51E50D234E6E25002376F5 /* FilterCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCellView.swift; sourceTree = "<group>"; };
+		2D51E50E234E6E25002376F5 /* FilterCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCellView.xib; sourceTree = "<group>"; };
+		2D51E512234E784A002376F5 /* FilterHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterHeaderView.swift; sourceTree = "<group>"; };
+		2D51E515234E787C002376F5 /* FilterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterHeaderView.xib; sourceTree = "<group>"; };
 		41AEFD46D59089B131D9DE6D /* Pods-meli-mobile-candidateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meli-mobile-candidateTests.debug.xcconfig"; path = "Target Support Files/Pods-meli-mobile-candidateTests/Pods-meli-mobile-candidateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8487259E392D77392A122A10 /* Pods_meli_mobile_candidateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meli_mobile_candidateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		886977B130588E8C77F0A594 /* Pods_meli_mobile_candidate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_meli_mobile_candidate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -283,12 +291,10 @@
 		2D350E8F234935880050F475 /* ItemList */ = {
 			isa = PBXGroup;
 			children = (
+				2D51E50C234E6DDB002376F5 /* Views */,
 				2D350E93234936CA0050F475 /* ItemListViewModel.swift */,
 				2D068AEB234D7B7100A6E385 /* ItemListViewController.swift */,
 				2D068AEC234D7B7100A6E385 /* ItemListViewController.xib */,
-				2D068AF1234D849800A6E385 /* ItemCellView.swift */,
-				2D068AF3234D84A700A6E385 /* ItemCellView.xib */,
-				2D068AFE234DA7BB00A6E385 /* HeaderView.swift */,
 			);
 			path = ItemList;
 			sourceTree = "<group>";
@@ -405,6 +411,20 @@
 			path = "meli-mobile-candidateTests";
 			sourceTree = "<group>";
 		};
+		2D51E50C234E6DDB002376F5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2D51E512234E784A002376F5 /* FilterHeaderView.swift */,
+				2D51E515234E787C002376F5 /* FilterHeaderView.xib */,
+				2D51E50D234E6E25002376F5 /* FilterCellView.swift */,
+				2D51E50E234E6E25002376F5 /* FilterCellView.xib */,
+				2D068AF1234D849800A6E385 /* ItemCellView.swift */,
+				2D068AF3234D84A700A6E385 /* ItemCellView.xib */,
+				2D068AFE234DA7BB00A6E385 /* HeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8B49E29F72972617DEF7C757 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -511,8 +531,10 @@
 			files = (
 				2D4372C623493177001EB1EC /* LaunchScreen.storyboard in Resources */,
 				2D068AF4234D84A700A6E385 /* ItemCellView.xib in Resources */,
+				2D51E516234E787C002376F5 /* FilterHeaderView.xib in Resources */,
 				2D068AEE234D7B7100A6E385 /* ItemListViewController.xib in Resources */,
 				2D4372C323493177001EB1EC /* Assets.xcassets in Resources */,
+				2D51E510234E6E25002376F5 /* FilterCellView.xib in Resources */,
 				2D4372C123493173001EB1EC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -595,6 +617,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D51E50F234E6E25002376F5 /* FilterCellView.swift in Sources */,
 				2D350EC3234C3B0F0050F475 /* SellerAddressDataResponse.swift in Sources */,
 				2D350EE1234C52600050F475 /* Installments.swift in Sources */,
 				2D350EAA234BFA3B0050F475 /* SearchConfigurations.swift in Sources */,
@@ -640,6 +663,7 @@
 				2D350ED5234C3F8D0050F475 /* PathFromRootDataResponse.swift in Sources */,
 				2D068AF7234D8A2E00A6E385 /* QueryViewData.swift in Sources */,
 				2D068AFD234DA08D00A6E385 /* Extensions.swift in Sources */,
+				2D51E514234E784A002376F5 /* FilterHeaderView.swift in Sources */,
 				2D350EC7234C3B580050F475 /* StateDataResponse.swift in Sources */,
 				2D350EBD234C37200050F475 /* InstallmentsDataResponse.swift in Sources */,
 				2D350EB6234C2E740050F475 /* PagingDataResponse.swift in Sources */,

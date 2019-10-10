@@ -12,6 +12,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ItemListViewController" customModule="meli_mobile_candidate" customModuleProvider="target">
             <connections>
+                <outlet property="closeFiltersButton" destination="zy9-EM-VbY" id="x3Y-vx-eXa"/>
+                <outlet property="filtersTableView" destination="Dzc-Mm-Kzc" id="OkR-Hx-sez"/>
+                <outlet property="filtersTableViewContainer" destination="mnU-Vz-3Ri" id="5bH-kF-Y78"/>
                 <outlet property="tableView" destination="4C1-mY-nsq" id="EIp-Nc-eId"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,13 +28,43 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnU-Vz-3Ri">
+                    <rect key="frame" x="0.0" y="5" width="414" height="896"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zy9-EM-VbY">
+                            <rect key="frame" x="37.5" y="99.5" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="35" id="pe8-Jb-3Kr"/>
+                                <constraint firstAttribute="height" constant="35" id="uwx-MB-PY1"/>
+                            </constraints>
+                            <state key="normal" title="X"/>
+                        </button>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dzc-Mm-Kzc">
+                            <rect key="frame" x="72.5" y="134.5" width="310.5" height="761.5"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Dzc-Mm-Kzc" secondAttribute="bottom" id="B1h-Aa-GTv"/>
+                        <constraint firstItem="zy9-EM-VbY" firstAttribute="bottom" secondItem="Dzc-Mm-Kzc" secondAttribute="top" id="Z0F-FP-OfY"/>
+                        <constraint firstItem="Dzc-Mm-Kzc" firstAttribute="height" secondItem="mnU-Vz-3Ri" secondAttribute="height" multiplier="0.85" id="iL5-eP-Nts"/>
+                        <constraint firstItem="Dzc-Mm-Kzc" firstAttribute="width" secondItem="mnU-Vz-3Ri" secondAttribute="width" multiplier="0.75" id="kue-5v-Ll0"/>
+                        <constraint firstItem="Dzc-Mm-Kzc" firstAttribute="centerX" secondItem="mnU-Vz-3Ri" secondAttribute="centerX" multiplier="1.1" id="vAb-vc-pdb"/>
+                        <constraint firstItem="zy9-EM-VbY" firstAttribute="trailing" secondItem="Dzc-Mm-Kzc" secondAttribute="leading" id="yaR-Sr-9ev"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="4C1-mY-nsq" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="1Yi-hC-c0i"/>
+                <constraint firstItem="mnU-Vz-3Ri" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="744-4f-6QO"/>
                 <constraint firstItem="4C1-mY-nsq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UER-zO-xba"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4C1-mY-nsq" secondAttribute="bottom" id="VXF-cH-S8u"/>
+                <constraint firstItem="mnU-Vz-3Ri" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="XM5-v9-16c"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4C1-mY-nsq" secondAttribute="trailing" id="dpc-xy-18g"/>
+                <constraint firstItem="mnU-Vz-3Ri" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="nbQ-ke-B3Y"/>
+                <constraint firstItem="mnU-Vz-3Ri" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="yUl-wO-Ede"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>

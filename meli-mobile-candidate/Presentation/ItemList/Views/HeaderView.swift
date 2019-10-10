@@ -16,7 +16,7 @@ class HeaderView: UIView {
     
     private func setupHeaderView() {
         filterButton = UIButton(type: .system)
-        filterButton.setTitle("Filtrar >", for: .normal)
+        filterButton.setTitle("Filter >", for: .normal)
         filterButton.titleLabel!.font = .systemFont(ofSize: 14, weight: .light)
         filterButton.titleLabel!.textColor = .blue
         self.addSubview(filterButton)
