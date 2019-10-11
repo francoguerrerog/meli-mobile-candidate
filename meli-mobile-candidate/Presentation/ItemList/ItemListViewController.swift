@@ -10,6 +10,7 @@ class ItemListViewController: UIViewController {
     @IBOutlet weak var closeFiltersButton: UIButton!
     
     private var headerView: HeaderView?
+    private var headerFilterView: HeaderView?
     private let searchController = UISearchController(searchResultsController: nil)
     
     private let disposeBag = DisposeBag()
@@ -17,9 +18,9 @@ class ItemListViewController: UIViewController {
     private let viewModel: ItemListViewModel
     
     private var query: QueryViewData?
-    private var filters: [QueryViewData] = []
+    private var selectedFilters: [QueryViewData] = []
     
-    private var searchConfigurations: SearchConfigurations?
+    private var filters: [FilterViewData] = []
     
     private var sectionExpanded:Int?
     
@@ -42,7 +43,7 @@ class ItemListViewController: UIViewController {
         bindTapFiltersContainer()
         
         bindItemsFromViewModel()
-        bindSearchConfigurationsFromViewModel()
+        bindFiltersFromViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +72,7 @@ class ItemListViewController: UIViewController {
         filtersTableView.delegate = self
         filtersTableView.dataSource = self
         filtersTableView.register(UINib(nibName: FilterCellView.cellIdentifier, bundle: Bundle(for: type(of: self))), forCellReuseIdentifier: FilterCellView.cellIdentifier)
+        loadHeaderFilterTableView()
     }
     
     private func bindItemsFromViewModel() {
@@ -94,7 +96,7 @@ class ItemListViewController: UIViewController {
     private func search() {
         guard let q = query else { return }
         
-        var queryParams = filters
+        var queryParams = selectedFilters
         queryParams.append(q)
         viewModel.search(queryParams: queryParams)
     }
@@ -113,12 +115,31 @@ class ItemListViewController: UIViewController {
         bindHeaderFilterAction()
     }
     
+    private func loadHeaderFilterTableView() {
+        headerFilterView = HeaderView(height: 50.0)
+        headerFilterView!.filterButton.setTitle("Remove all filters", for: .normal)
+        filtersTableView.tableHeaderView = headerFilterView
+        bindRemoveAllFiltersAction()
+    }
+    
     private func bindHeaderFilterAction() {
         guard let header = headerView else { return }
         
         header.filterButton.rx.tap
             .bind(onNext: { [weak self] _ in
                 self?.filtersTableViewContainer.isHidden = false
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindRemoveAllFiltersAction() {
+        guard let header = headerFilterView else { return }
+        
+        header.filterButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                self?.filtersTableViewContainer.isHidden = true
+                self?.selectedFilters = []
+                self?.search()
             })
             .disposed(by: disposeBag)
     }
@@ -131,21 +152,17 @@ class ItemListViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func bindSearchConfigurationsFromViewModel() {
-        viewModel.output.searchConfigurations
+    private func bindFiltersFromViewModel() {
+        viewModel.output.filterList
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (searchConfigurations) in
+            .subscribe(onNext: { (filtersViewData) in
                 if self.isHeaderTableViewEmpty {
                     self.loadHeaderTableView()
                 }
-                self.setTableViewConfigurations(searchConfigurations)
+                self.filters = filtersViewData
+                self.filtersTableView.reloadData()
             })
             .disposed(by: disposeBag)
-    }
-    
-    private func setTableViewConfigurations(_ searchConfigurations: SearchConfigurations) {
-        self.searchConfigurations = searchConfigurations
-        filtersTableView.reloadData()
     }
     
     private func bindTapHeaderInSection(_ header: FilterHeaderView) {
@@ -169,133 +186,19 @@ class ItemListViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
-}
-
-extension ItemListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        guard let configurations = searchConfigurations else { return 0 }
-        
-        return 1 + configurations.availableFilters.count
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let expanded = sectionExpanded else { return 0 }
-        
-        if section == expanded {
-            guard let configurations = searchConfigurations else { return 0 }
-            
-            if section == 0 {
-                return configurations.availableSorts.count
-            } else {
-                guard let values = configurations.availableFilters[section-1].values else { return 0 }
-                return values.count
-            }
-        }
-        
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FilterCellView.cellIdentifier, for: indexPath) as! FilterCellView
-        
-        if indexPath.section == 0 {
-            if let data = searchConfigurations?.availableSorts[indexPath.row] {
-                cell.titleLabel.text = data.name
-            }
+    private func selectFilter(_ filter: FilterViewData, _ filterValue: ValueViewData) {
+        if let index = selectedFilters.firstIndex(where: {$0.key == filter.id}) {
+            selectedFilters[index] = QueryViewData(key: filter.id, value: filterValue.id)
         } else {
-            if let sectionData = searchConfigurations?.availableFilters[indexPath.section-1],
-                let values = sectionData.values {
-                cell.titleLabel.text = values[indexPath.row].name
-            }
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if tableView != filtersTableView {
-            return nil
-        }
-        
-        guard let configurations = searchConfigurations else { return nil }
-        
-        let header = FilterHeaderView(frame: CGRect(x: 0, y: 0, width: filtersTableView.bounds.width, height: 50.0))
-        header.tag = section
-        
-        if section == 0 {
-            header.titleLabel.text = "Sorted by"
-            header.subtitleLabel.text = configurations.sort.name
-        } else {
-            let data = configurations.availableFilters[section-1]
-            header.titleLabel.text = data.name
-            let selected = configurations.filters.filter{$0.id == data.id}.first
-            header.subtitleLabel.text = (selected != nil) ? selected!.name : ""
-        }
-        
-        bindTapHeaderInSection(header)
-        
-        return header
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if tableView != filtersTableView {
-            return 0
-        }
-        return 50.0
-    }
-    
-}
-
-extension ItemListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch tableView {
-        case self.tableView:
-            return 100.0
-        case self.filtersTableView:
-            return 50.0
-        default:
-            return 100.0
-        }
-        
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch tableView {
-        case self.tableView:
-            // ir a pantalla de detalle
-            break
-        case self.filtersTableView:
-            // verificar seleccionado y llamar search()
-            sectionExpanded = nil
-            filtersTableViewContainer.isHidden = true
-            guard let configurations = searchConfigurations else { return }
-            if indexPath.section == 0 {
-                let sort = configurations.availableSorts[indexPath.row]
-                self.setSortFilter(sort)
-            } else {
-                let filter = configurations.availableFilters[indexPath.section-1]
-                guard let filterValue = filter.values?[indexPath.row] else { return }
-                self.setFilter(filter, filterValue)
-            }
-            break
-        default:
-            break
-        }
-    }
-    
-    private func setSortFilter(_ sort: SortDataResponse) {
-        if let index = filters.firstIndex(where: {$0.key == "sort"}) {
-            filters[index] = QueryViewData(key: "sort", value: sort.id!)
-        } else {
-            filters.append(QueryViewData(key: "sort", value: sort.id!))
+            selectedFilters.append(QueryViewData(key: filter.id, value: filterValue.id))
         }
         search()
     }
     
-    private func setFilter(_ filter: FilterDataResponse, _ filterValue: FilterValuesDataResponse) {
-        if let index = filters.firstIndex(where: {$0.key == filter.id!}) {
-            filters[index] = QueryViewData(key: filter.id!, value: filterValue.id!)
-        } else {
-            filters.append(QueryViewData(key: filter.id!, value: filterValue.id!))
+    private func unselectFilter(_ filter: FilterViewData) {
+        if let index = selectedFilters.firstIndex(where: {$0.key == filter.id}) {
+            selectedFilters.remove(at: index)
         }
         search()
     }
@@ -318,3 +221,89 @@ extension ItemListViewController: UISearchBarDelegate {
     }
 }
 
+extension ItemListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return filters.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        if section == sectionExpanded {
+            return max(filters[section].values.count, 1)
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FilterCellView.cellIdentifier, for: indexPath) as! FilterCellView
+        
+        let dataFilter = filters[indexPath.section]
+        
+        if dataFilter.values.count == 0 {
+            cell.titleLabel.text = "Remove filter"
+        } else {
+            let dataValue = dataFilter.values[indexPath.row]
+            cell.titleLabel.text = dataValue.name
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if tableView != filtersTableView {
+            return nil
+        }
+        
+        let header = FilterHeaderView(frame: CGRect(x: 0, y: 0, width: filtersTableView.bounds.width, height: 50.0))
+        header.tag = section
+        let data = filters[section]
+        
+        header.titleLabel.text = data.name
+        header.subtitleLabel.text = (data.selected != nil) ? (data.selected?.name)! : ""
+        
+        bindTapHeaderInSection(header)
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if tableView != filtersTableView {
+            return 0
+        }
+        return 50.0
+    }
+}
+
+extension ItemListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch tableView {
+        case self.tableView:
+            return 100.0
+        case self.filtersTableView:
+            return 50.0
+        default:
+            return 100.0
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch tableView {
+        case self.tableView:
+            // ir a pantalla de detalle
+            break
+        case self.filtersTableView:
+            sectionExpanded = nil
+            filtersTableViewContainer.isHidden = true
+            let dataFilter = filters[indexPath.section]
+            if dataFilter.values.count == 0 {
+                unselectFilter(dataFilter)
+            } else {
+                selectFilter(dataFilter, dataFilter.values[indexPath.row])
+            }
+        default:
+            break
+        }
+    }
+}

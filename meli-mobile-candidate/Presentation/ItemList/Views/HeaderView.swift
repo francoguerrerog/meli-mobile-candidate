@@ -24,7 +24,6 @@ class HeaderView: UIView {
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: filterButton!, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: -25).isActive = true
         NSLayoutConstraint(item: filterButton!, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: filterButton!, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.width, multiplier: 0.2, constant: 0).isActive = true
         
     }
 }
