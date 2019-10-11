@@ -19,6 +19,7 @@ class ApiSearchItemsRepository: SearchItemsRepository {
             
             let task = self.urlSession.dataTask(with: urlRequest) { (data, response, error) -> Void in
                 guard error == nil else {
+                    print("Api Error---- \(error.debugDescription)")
                     return single(.error(ApiError.fetchingError))
                 }
                 
@@ -30,19 +31,11 @@ class ApiSearchItemsRepository: SearchItemsRepository {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .formatted(formatter)
                 
-                var responseObject: SearchDataResponse!
-                do {
-                    responseObject = try decoder.decode(SearchDataResponse.self, from: data!)
-                    print(responseObject)
-                } catch {
-                    print(error)
-                    return single(.error(ApiError.fetchingError))
+                guard let data = data,
+                    let responseObject = try? decoder.decode(SearchDataResponse.self, from: data) else {
+                        print("Api Error---- \(error.debugDescription)")
+                        return single(.error(ApiError.fetchingError))
                 }
-                
-//                guard let data = data,
-//                    let responseObject = try? decoder.decode(SearchDataResponse.self, from: data) else {
-//                        return single(.error(ApiError.fetchingError))
-//                }
                 
                 return single(.success(responseObject))
             }

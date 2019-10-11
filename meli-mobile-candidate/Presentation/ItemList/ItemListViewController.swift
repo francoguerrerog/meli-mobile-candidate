@@ -40,6 +40,7 @@ class ItemListViewController: UIViewController {
         setupSearchController()
         setupTableView()
         setupFiltersTableView()
+        bindErrorMessageFromViewModel()
         
         bindTapFiltersContainer()
         
@@ -94,6 +95,15 @@ class ItemListViewController: UIViewController {
             .bind(to: tableView.rx.items(cellIdentifier: ItemCellView.cellIdentifier, cellType: ItemCellView.self)) { [weak self] row, element, cell in
                 self?.configureCell(cell, with: element)
             }
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindErrorMessageFromViewModel() {
+        viewModel.output.errorMessage
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (message) in
+                self?.showErrorAlert(message: message)
+            })
             .disposed(by: disposeBag)
     }
 
@@ -226,6 +236,14 @@ class ItemListViewController: UIViewController {
             selectedFilters.remove(at: index)
         }
         search()
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK!", style: .default, handler: nil))
+        
+        self.present(alert, animated: true)
     }
 }
 

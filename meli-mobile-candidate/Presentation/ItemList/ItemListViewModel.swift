@@ -7,17 +7,20 @@ class ItemListViewModel {
         public let itemList: Observable<[Item]>
         public let filterList: Observable<[FilterViewData]>
         public let goToItemDetails: Observable<Void>
+        public let errorMessage: Observable<String>
     }
     
     lazy public var output: Output = {
         return Output(itemList: itemListSubject.asObservable(),
                       filterList: filterListSubject.asObservable(),
-                      goToItemDetails: goToItemDetailsSubject.asObservable())
+                      goToItemDetails: goToItemDetailsSubject.asObservable(),
+                      errorMessage: errorMessageSubject.asObservable())
     }()
     
     private let itemListSubject = PublishSubject<[Item]>()
     private let filterListSubject = PublishSubject<[FilterViewData]>()
     private let goToItemDetailsSubject = PublishSubject<Void>()
+    private let errorMessageSubject = PublishSubject<String>()
     
     private let disposeBag = DisposeBag()
     
@@ -34,7 +37,10 @@ class ItemListViewModel {
             .subscribe(onSuccess: { [weak self] (searchResponse) in
                 self?.itemListSubject.onNext(searchResponse.items)
                 self?.emitSearchFilters(searchResponse.searchConfigurations)
-            })
+            }) { [weak self] (error) in
+                print("Error------- \(error)")
+                self?.errorMessageSubject.onNext("Ops!, Error searching, please try again!.")
+            }
             .disposed(by: disposeBag)
     }
     
@@ -42,8 +48,9 @@ class ItemListViewModel {
         setItemDetailsAction.execute(itemId: itemId)
             .subscribe(onCompleted: { [weak self] in
                 self?.goToItemDetailsSubject.onNext(())
-            }) { (error) in
-                print(error)
+            }) { [weak self] (error) in
+                print("Error------- \(error)")
+                self?.errorMessageSubject.onNext("Ops!, It's not possible to load that item, please try another!.")
             }
             .disposed(by: disposeBag)
     }
