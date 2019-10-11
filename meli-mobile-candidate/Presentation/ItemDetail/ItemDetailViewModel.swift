@@ -19,8 +19,8 @@ class ItemDetailViewModel {
         self.getItemDetailsAction = getItemDetailsAction
     }
     
-    func getItemDetails(itemId: String) {
-        guard let item = getItemDetailsAction.execute(itemId: itemId) else { return }
+    func getItemDetails() {
+        guard let item = getItemDetailsAction.execute() else { return }
         
         itemSubject.onNext(item)
     }

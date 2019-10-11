@@ -10,6 +10,6 @@ class SearchItemsRepositorySpy: SearchItemsRepository {
     func search(filters: [QueryFilter]) -> Single<SearchDataResponse> {
         hasSearched = true
         self.filters = filters
-        return Single.just(SearchDataResponse(siteId: "", query: "", paging: PagingDataResponse(total: nil, offset: nil, limit: nil, primaryResults: nil), results: [], secondaryResults: [], relatedResults: [], sort: SortDataResponse(id: nil, name: nil), availableSorts: [], filters: [], availableFilters: []))
+        return Single.just(SearchDataResponse(siteId: "siteId", query: "query", paging: PagingDataResponse(total: 0, offset: 0, limit: 0, primaryResults: 0), results: [], secondaryResults: [], relatedResults: [], sort: SortDataResponse(id: "id", name: "name"), availableSorts: [], filters: [], availableFilters: []))
     }
 }

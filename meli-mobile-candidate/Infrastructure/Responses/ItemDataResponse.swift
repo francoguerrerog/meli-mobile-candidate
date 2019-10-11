@@ -8,6 +8,7 @@ struct ItemDataResponse: Codable {
     let price: Double?
     let currencyId: String?
     let availableQuantity: Int?
+    let soldQuantity: Int?
     let buyingMode: String?
     let listingTypeId: String?
     let stopTime: Date?
@@ -34,6 +35,7 @@ struct ItemDataResponse: Codable {
         case price = "price"
         case currencyId = "currency_id"
         case availableQuantity = "available_quantity"
+        case soldQuantity = "sold_quantity"
         case buyingMode = "buying_mode"
         case listingTypeId = "listing_type_id"
         case stopTime = "stop_time"

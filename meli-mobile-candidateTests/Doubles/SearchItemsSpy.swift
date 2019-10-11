@@ -6,6 +6,6 @@ class SearchItemsSpy: SearchItems {
     var hasExecuted = false
     func execute(filters: [QueryFilter]) -> Single<SearchResponse> {
         hasExecuted = true
-        return Single.just(SearchResponse(items: [], searchConfigurations: SearchConfigurations(query: "", sort: SortDataResponse(id: nil, name: nil), availableSorts: [], filters: [], availableFilters: [])))
+        return Single.just(SearchResponse(items: [], searchConfigurations: SearchConfigurations(query: "query", sort: SortDataResponse(id: "id", name: "name"), availableSorts: [], filters: [], availableFilters: [])))
     }
 }

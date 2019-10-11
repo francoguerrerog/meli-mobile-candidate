@@ -8,6 +8,7 @@ struct Item {
     let price: Double
     let currencyId: String
     let availableQuantity: Int
+    let soldQuantity: Int
     let buyingMode: String
     let listingTypeId: String
     let stopTime: Date
@@ -33,6 +34,7 @@ struct Item {
         self.seller = Seller(sellerDataResponse: itemDataResponse.seller)
         self.price = itemDataResponse.price ?? 0
         self.currencyId = itemDataResponse.currencyId ?? ""
+        self.soldQuantity = itemDataResponse.soldQuantity ?? 0
         self.availableQuantity = itemDataResponse.availableQuantity ?? 0
         self.buyingMode = itemDataResponse.buyingMode ?? ""
         self.listingTypeId = itemDataResponse.listingTypeId ?? ""

@@ -1,17 +1,17 @@
 import Foundation
 
 protocol GetItemDetails {
-    func execute(itemId: String) -> Item?
+    func execute() -> Item?
 }
 
 class GetItemDetailsDefault: GetItemDetails {
-    let itemsRepository: ItemsRepository
+    let itemDetailsRepository: ItemDetailsRepository
     
-    init(itemsRepository: ItemsRepository) {
-        self.itemsRepository = itemsRepository
+    init(itemDetailsRepository: ItemDetailsRepository) {
+        self.itemDetailsRepository = itemDetailsRepository
     }
     
-    func execute(itemId: String) -> Item? {
-        return itemsRepository.find().filter{$0.id == itemId}.first
+    func execute() -> Item? {
+        return itemDetailsRepository.find()
     }
 }

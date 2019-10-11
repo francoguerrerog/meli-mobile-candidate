@@ -20,6 +20,7 @@ class ItemListViewController: UIViewController {
     private var query: QueryViewData?
     private var selectedFilters: [QueryViewData] = []
     
+    private var items: [Item] = []
     private var filters: [FilterViewData] = []
     
     private var sectionExpanded:Int?
@@ -44,6 +45,7 @@ class ItemListViewController: UIViewController {
         
         bindItemsFromViewModel()
         bindFiltersFromViewModel()
+        bindGoToItemDetails()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +62,7 @@ class ItemListViewController: UIViewController {
         searchController.searchBar.placeholder = "Search..."
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.delegate = self
     }
     
@@ -75,8 +78,19 @@ class ItemListViewController: UIViewController {
         loadHeaderFilterTableView()
     }
     
+    private func showTableIfNeeded() {
+        if self.tableView.isHidden == true {
+            self.tableView.isHidden = false
+        }
+    }
+    
     private func bindItemsFromViewModel() {
         viewModel.output.itemList
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] (items) in
+                self?.items = items
+                self?.showTableIfNeeded()
+            })
             .bind(to: tableView.rx.items(cellIdentifier: ItemCellView.cellIdentifier, cellType: ItemCellView.self)) { [weak self] row, element, cell in
                 self?.configureCell(cell, with: element)
             }
@@ -161,6 +175,17 @@ class ItemListViewController: UIViewController {
                 }
                 self.filters = filtersViewData
                 self.filtersTableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindGoToItemDetails() {
+        viewModel.output.goToItemDetails
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                let itemDetailsViewModel = ViewModelsFactory.createItemDetailsDefault()
+                let viewController = ItemDetailsViewController(viewModel: itemDetailsViewModel)
+                self?.navigationController?.pushViewController(viewController, animated: true)
             })
             .disposed(by: disposeBag)
     }
@@ -279,11 +304,11 @@ extension ItemListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch tableView {
         case self.tableView:
-            return 100.0
+            return 130.0
         case self.filtersTableView:
             return 50.0
         default:
-            return 100.0
+            return 130.0
         }
         
     }
@@ -291,8 +316,7 @@ extension ItemListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch tableView {
         case self.tableView:
-            // ir a pantalla de detalle
-            break
+            viewModel.selectItem(itemId: items[indexPath.row].id)
         case self.filtersTableView:
             sectionExpanded = nil
             filtersTableViewContainer.isHidden = true

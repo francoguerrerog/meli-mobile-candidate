@@ -5,34 +5,46 @@ class ItemListViewModel {
     
     struct Output {
         public let itemList: Observable<[Item]>
-        public let searchConfigurations: Observable<SearchConfigurations>
         public let filterList: Observable<[FilterViewData]>
+        public let goToItemDetails: Observable<Void>
     }
     
     lazy public var output: Output = {
         return Output(itemList: itemListSubject.asObservable(),
-                      searchConfigurations: searchConfigurationstSubject.asObservable(),
-                      filterList: filterListSubject.asObservable())
+                      filterList: filterListSubject.asObservable(),
+                      goToItemDetails: goToItemDetailsSubject.asObservable())
     }()
     
     private let itemListSubject = PublishSubject<[Item]>()
-    private let searchConfigurationstSubject = PublishSubject<SearchConfigurations>()
     private let filterListSubject = PublishSubject<[FilterViewData]>()
+    private let goToItemDetailsSubject = PublishSubject<Void>()
     
     private let disposeBag = DisposeBag()
     
     private let searchItemsAction: SearchItems
+    private let setItemDetailsAction: SetItemDetails
     
-    init(searchItemsAction: SearchItems) {
+    init(searchItemsAction: SearchItems, setItemDetailsAction: SetItemDetails) {
         self.searchItemsAction = searchItemsAction
+        self.setItemDetailsAction = setItemDetailsAction
     }
     
     func search(queryParams: [QueryViewData]) {
         searchItemsAction.execute(filters: queryParams.map{QueryFilter(key: $0.key, value: $0.value)})
-            .subscribe(onSuccess: { (searchResponse) in
-                self.itemListSubject.onNext(searchResponse.items)
-                self.emitSearchFilters(searchResponse.searchConfigurations)
+            .subscribe(onSuccess: { [weak self] (searchResponse) in
+                self?.itemListSubject.onNext(searchResponse.items)
+                self?.emitSearchFilters(searchResponse.searchConfigurations)
             })
+            .disposed(by: disposeBag)
+    }
+    
+    func selectItem(itemId: String) {
+        setItemDetailsAction.execute(itemId: itemId)
+            .subscribe(onCompleted: { [weak self] in
+                self?.goToItemDetailsSubject.onNext(())
+            }) { (error) in
+                print(error)
+            }
             .disposed(by: disposeBag)
     }
     
@@ -50,7 +62,6 @@ class ItemListViewModel {
         let availableFilters = searchConfigurations.availableFilters.map{self.createAvailableFilter($0, searchConfigurations.filters)}
         filterList.append(contentsOf: availableFilters)
         
-        searchConfigurationstSubject.onNext(searchConfigurations)
         filterListSubject.onNext(filterList)
     }
     

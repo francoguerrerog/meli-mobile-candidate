@@ -3,7 +3,7 @@ import XCTest
 
 class GetItemDetailsTests: XCTestCase {
     
-    private var itemsRepository: ItemsRepositorySpy!
+    private var itemDetailsRepository: ItemDetailsRepositorySpy!
     private var getItemDetails: GetItemDetailsDefault!
     
     func test_GetItemDetails() {
@@ -16,18 +16,18 @@ class GetItemDetailsTests: XCTestCase {
     }
     
     fileprivate func givenDependencies() {
-        itemsRepository = ItemsRepositorySpy()
+        itemDetailsRepository = ItemDetailsRepositorySpy()
     }
     
     fileprivate func givenAnAction() {
-        getItemDetails = GetItemDetailsDefault(itemsRepository: itemsRepository)
+        getItemDetails = GetItemDetailsDefault(itemDetailsRepository: itemDetailsRepository)
     }
     
     fileprivate func whenGetItemDetails() {
-        _ = getItemDetails.execute(itemId: "1")
+        _ = getItemDetails.execute()
     }
     
     fileprivate func thenFindItemDetails() {
-        XCTAssertTrue(itemsRepository.hasFind)
+        XCTAssertTrue(itemDetailsRepository.hasFind)
     }
 }

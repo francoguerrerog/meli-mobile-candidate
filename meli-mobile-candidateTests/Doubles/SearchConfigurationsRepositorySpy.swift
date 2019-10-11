@@ -7,7 +7,7 @@ class SearchConfigurationsRepositorySpy: SearchConfigurationsRepository {
     
     func find() -> SearchConfigurations? {
         hasFind = true
-        return SearchConfigurations(query: "", sort: SortDataResponse(id: nil, name: nil), availableSorts: [], filters: [], availableFilters: [])
+        return SearchConfigurations(query: "query", sort: SortDataResponse(id: "id", name: "name"), availableSorts: [], filters: [], availableFilters: [])
     }
     
     func put(_ searchConfigurations: SearchConfigurations) {

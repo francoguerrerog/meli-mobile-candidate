@@ -47,7 +47,7 @@ class ItemDetailViewModelTests: XCTestCase {
     }
     
     fileprivate func whenGetItemDetails() {
-        viewModel.getItemDetails(itemId: "1")
+        viewModel.getItemDetails()
     }
     
     fileprivate func thenGetItemDetails() {

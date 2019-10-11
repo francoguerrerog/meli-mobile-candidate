@@ -8,49 +8,109 @@ class ItemListViewModelTests: XCTestCase {
     
     private var viewModel: ItemListViewModel!
     private var searchItems: SearchItemsSpy!
+    private var setItemDetails: SetItemDetailsSpy!
 
     private var testScheduler: TestScheduler!
     private var itemListObserver: TestableObserver<[Item]>!
-    private var searchConfigurationsObserver: TestableObserver<SearchConfigurations>!
+    private var filtersObserver: TestableObserver<[FilterViewData]>!
+    private var goToItemDetailsObserver: TestableObserver<Void>!
     
     private let disposeBag = DisposeBag()
     
     override func setUp() {
         testScheduler = TestScheduler(initialClock: 0)
         itemListObserver = testScheduler.createObserver([Item].self)
-        searchConfigurationsObserver = testScheduler.createObserver(SearchConfigurations.self)
+        filtersObserver = testScheduler.createObserver([FilterViewData].self)
+        goToItemDetailsObserver = testScheduler.createObserver(Void.self)
     }
     
     func test_GetSearchResponse() {
-        searchItems = SearchItemsSpy()
-        viewModel = ItemListViewModel(searchItemsAction: searchItems)
+        givenDependencies()
+        givenAViewModel()
+        viewModel = ItemListViewModel(searchItemsAction: searchItems, setItemDetailsAction: setItemDetails)
         
-        viewModel.search(queryParams: [])
+        whenSearch()
         
-        XCTAssertTrue(searchItems.hasExecuted)
+        thenSearch()
     }
     
     func test_EmitItems() {
-        testScheduler.start()
-        searchItems = SearchItemsSpy()
-        viewModel = ItemListViewModel(searchItemsAction: searchItems)
+        givenDependencies()
+        givenAViewModel()
         
         viewModel.output.itemList.subscribe(itemListObserver).disposed(by: disposeBag)
-        viewModel.search(queryParams: [])
+        whenSearch()
         
+        thenEmitItems()
+    }
+    
+    func test_EmitSearchConfiguration() {
+        givenDependencies()
+        givenAViewModel()
+        
+        viewModel.output.filterList.subscribe(filtersObserver).disposed(by: disposeBag)
+        whenSearch()
+        
+        thenEmitFilters()
+    }
+    
+    func test_SelectItem() {
+        givenDependencies()
+        givenAViewModel()
+        
+        whenSelectItem()
+        
+        thenSelectItem()
+    }
+    
+    func test_EmitGoToDetail() {
+        givenDependencies()
+        givenAViewModel()
+        
+        viewModel.output.goToItemDetails.subscribe(goToItemDetailsObserver).disposed(by: disposeBag)
+        whenSelectItem()
+        
+        thenEmitGoToItemDetails()
+    }
+    
+    fileprivate func givenDependencies() {
+        searchItems = SearchItemsSpy()
+        setItemDetails = SetItemDetailsSpy()
+        setItemDetails = SetItemDetailsSpy()
+    }
+    
+    fileprivate func givenAViewModel() {
+        viewModel = ItemListViewModel(searchItemsAction: searchItems, setItemDetailsAction: setItemDetails)
+    }
+    
+    fileprivate func whenSearch() {
+        viewModel.search(queryParams: [])
+    }
+    
+    fileprivate func whenSelectItem() {
+        viewModel.selectItem(itemId: "itemId")
+    }
+    
+    fileprivate func thenSearch() {
+        XCTAssertTrue(searchItems.hasExecuted)
+    }
+    
+    fileprivate func thenEmitItems() {
         let events = itemListObserver.events
         XCTAssertEqual(events.count, 1)
     }
     
-    func test_EmitSearchConfiguration() {
-        testScheduler.start()
-        searchItems = SearchItemsSpy()
-        viewModel = ItemListViewModel(searchItemsAction: searchItems)
-        
-        viewModel.output.searchConfigurations.subscribe(searchConfigurationsObserver).disposed(by: disposeBag)
-        viewModel.search(queryParams: [])
-        
-        let events = searchConfigurationsObserver.events
+    fileprivate func thenEmitFilters() {
+        let events = filtersObserver.events
+        XCTAssertEqual(events.count, 1)
+    }
+    
+    fileprivate func thenSelectItem() {
+        XCTAssertTrue(setItemDetails.hasExecuted)
+    }
+    
+    fileprivate func thenEmitGoToItemDetails() {
+        let events = goToItemDetailsObserver.events
         XCTAssertEqual(events.count, 1)
     }
 }
