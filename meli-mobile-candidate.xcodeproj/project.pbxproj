@@ -75,8 +75,6 @@
 		2D350EEB234C59FB0050F475 /* GetItemDetailsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EEA234C59FB0050F475 /* GetItemDetailsTests.swift */; };
 		2D350EED234C5B660050F475 /* GetItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D350EEC234C5B660050F475 /* GetItemDetails.swift */; };
 		2D4372BC23493173001EB1EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4372BB23493173001EB1EC /* AppDelegate.swift */; };
-		2D4372BE23493173001EB1EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4372BD23493173001EB1EC /* ViewController.swift */; };
-		2D4372C123493173001EB1EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D4372BF23493173001EB1EC /* Main.storyboard */; };
 		2D4372C323493177001EB1EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D4372C223493177001EB1EC /* Assets.xcassets */; };
 		2D4372C623493177001EB1EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D4372C423493177001EB1EC /* LaunchScreen.storyboard */; };
 		2D51E50F234E6E25002376F5 /* FilterCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D51E50D234E6E25002376F5 /* FilterCellView.swift */; };
@@ -170,8 +168,6 @@
 		2D350EEC234C5B660050F475 /* GetItemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetItemDetails.swift; sourceTree = "<group>"; };
 		2D4372B823493173001EB1EC /* meli-mobile-candidate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meli-mobile-candidate.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D4372BB23493173001EB1EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2D4372BD23493173001EB1EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2D4372C023493173001EB1EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2D4372C223493177001EB1EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D4372C523493177001EB1EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D4372C723493177001EB1EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -411,8 +407,6 @@
 				2D350E81234934B80050F475 /* Infrastructure */,
 				2D350E82234934C40050F475 /* Presentation */,
 				2D4372BB23493173001EB1EC /* AppDelegate.swift */,
-				2D4372BD23493173001EB1EC /* ViewController.swift */,
-				2D4372BF23493173001EB1EC /* Main.storyboard */,
 				2D4372C223493177001EB1EC /* Assets.xcassets */,
 				2D4372C423493177001EB1EC /* LaunchScreen.storyboard */,
 				2D4372C723493177001EB1EC /* Info.plist */,
@@ -557,7 +551,6 @@
 				2D068AEE234D7B7100A6E385 /* ItemListViewController.xib in Resources */,
 				2D4372C323493177001EB1EC /* Assets.xcassets in Resources */,
 				2D51E510234E6E25002376F5 /* FilterCellView.xib in Resources */,
-				2D4372C123493173001EB1EC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,7 +648,6 @@
 				2D350E88234935280050F475 /* SearchItems.swift in Sources */,
 				2D350EED234C5B660050F475 /* GetItemDetails.swift in Sources */,
 				2D350E8B2349354B0050F475 /* ItemsRepository.swift in Sources */,
-				2D4372BE23493173001EB1EC /* ViewController.swift in Sources */,
 				2D350EBB234C36770050F475 /* SellerDataResponse.swift in Sources */,
 				2D350ED1234C3F660050F475 /* FilterDataResponse.swift in Sources */,
 				2D350EA6234BFA030050F475 /* SearchResponse.swift in Sources */,
@@ -728,14 +720,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		2D4372BF23493173001EB1EC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2D4372C023493173001EB1EC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2D4372C423493177001EB1EC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
