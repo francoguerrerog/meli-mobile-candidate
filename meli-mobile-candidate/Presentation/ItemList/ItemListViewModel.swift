@@ -35,13 +35,20 @@ class ItemListViewModel {
     func search(queryParams: [QueryViewData]) {
         searchItemsAction.execute(filters: queryParams.map{QueryFilter(key: $0.key, value: $0.value)})
             .subscribe(onSuccess: { [weak self] (searchResponse) in
-                self?.itemListSubject.onNext(searchResponse.items)
+                self?.emitItems(searchResponse.items)
                 self?.emitSearchFilters(searchResponse.searchConfigurations)
             }) { [weak self] (error) in
                 print("Error------- \(error)")
                 self?.errorMessageSubject.onNext("Ops!, Error searching, please try again!.")
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func emitItems(_ items: [Item]) {
+        if items.count == 0 {
+            errorMessageSubject.onNext("None items found, please try again!.")
+        }
+        itemListSubject.onNext(items)
     }
     
     func selectItem(itemId: String) {
