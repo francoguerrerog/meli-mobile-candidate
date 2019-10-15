@@ -6,6 +6,7 @@ class ViewModelsFactory {
     static private let itemsRepository = InMemoryItemsRepository()
     static private let searchConfigurationsRepository = InMemorySearchConfigurationsRepository()
     static private let itemDetailsRepository = InMemoryItemDetailsRepository()
+    static private let apiItemDetailRepository = ApiItemDetailRepository()
     
     static func createItemListViewModel() -> ItemListViewModel {
         let searchItems = createSearchItemsDefault()
@@ -16,7 +17,8 @@ class ViewModelsFactory {
     
     static func createItemDetailsDefault() -> ItemDetailViewModel {
         let getItemDetails = createGetItemDetailsDefault()
-        let viewModel = ItemDetailViewModel(getItemDetailsAction: getItemDetails)
+        let getItemDetail = createGetItemDetailDefault()
+        let viewModel = ItemDetailViewModel(getItemDetailsAction: getItemDetails, getItemFullDetailsAction: getItemDetail)
         return viewModel
     }
     
@@ -33,5 +35,10 @@ class ViewModelsFactory {
     static func createGetItemDetailsDefault() -> GetItemDetailsDefault {
         let getItemDetails = GetItemDetailsDefault(itemDetailsRepository: itemDetailsRepository)
         return getItemDetails
+    }
+    
+    static func createGetItemDetailDefault() -> GetItemFullDetailsDefault {
+        let getItemDetail = GetItemFullDetailsDefault(itemDetailRepository: apiItemDetailRepository)
+        return getItemDetail
     }
 }

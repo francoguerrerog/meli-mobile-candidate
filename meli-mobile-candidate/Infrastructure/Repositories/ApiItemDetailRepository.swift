@@ -1,13 +1,13 @@
 import Foundation
 import RxSwift
 
-class ApiSearchItemsRepository: SearchItemsRepository {
+class ApiItemDetailRepository: ItemDetailRepository {
     
     private let urlSession = URLSession.shared
     
-    func search(filters: [QueryFilter]) -> Single<SearchDataResponse> {
-        return Single<SearchDataResponse>.create { single in
-            guard let url = self.builSearchdUrlWithParameters(filters) else {
+    func find(itemId: String) -> Single<ItemDetailResponse> {
+        return Single<ItemDetailResponse>.create { single in
+            guard let url = self.builSearchdUrlWithParameters(itemId) else {
                 return single(.error(ApiError.urlError)) as! Disposable
             }
             
@@ -33,7 +33,7 @@ class ApiSearchItemsRepository: SearchItemsRepository {
                 decoder.dateDecodingStrategy = .formatted(formatter)
                 
                 guard let data = data,
-                    let responseObject = try? decoder.decode(SearchDataResponse.self, from: data) else {
+                    let responseObject = try? decoder.decode(ItemDetailResponse.self, from: data) else {
                         print("Api Error---- \(error.debugDescription)")
                         return single(.error(ApiError.fetchingError))
                 }
@@ -46,19 +46,13 @@ class ApiSearchItemsRepository: SearchItemsRepository {
         }
     }
     
-    private func builSearchdUrlWithParameters(_ parameters: [QueryFilter]) -> URL? {
+    private func builSearchdUrlWithParameters(_ parameter: String) -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.mercadolibre.com"
-        urlComponents.path = "/sites/MLA/search"
-        let queryParams: [String: String] = parameters.reduce([String: String](), { (dict, query) -> [String: String] in
-            var dict = dict
-            dict[query.key] = query.value
-            return dict
-        })
-        urlComponents.setQueryItems(with: queryParams)
+        urlComponents.path = "/items/\(parameter)"
         
         return urlComponents.url
-    
+        
     }
 }

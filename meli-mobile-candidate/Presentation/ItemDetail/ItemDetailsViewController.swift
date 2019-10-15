@@ -25,6 +25,8 @@ class ItemDetailsViewController: UIViewController {
         super.viewDidLoad()
 
         bindItemFromViewModel()
+        bindItemFullDetailsFromViewModel()
+        bindErrorMessageFromViewModel()
         
         viewModel.getItemDetails()
     }
@@ -37,6 +39,24 @@ class ItemDetailsViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
+    
+    private func bindItemFullDetailsFromViewModel() {
+        viewModel.output.itemDetails
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (itemDetails) in
+                //TODO: Cargar mas informacion con los detalles obtenidos desde API
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindErrorMessageFromViewModel() {
+        viewModel.output.errorMessage
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (message) in
+                self?.showErrorAlert(message: message)
+            })
+            .disposed(by: disposeBag)
+    }
 
     private func setupItemInfo(_ item: Item) {
         if let url = URL(string: item.thumbnail) {
@@ -46,5 +66,13 @@ class ItemDetailsViewController: UIViewController {
         itemTitleLabel.text = item.title
         itemPriceLabel.text = "$ \(item.price)"
         
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK!", style: .default, handler: nil))
+        
+        self.present(alert, animated: true)
     }
 }

@@ -7,15 +7,18 @@ class ItemDetailViewModelTests: XCTestCase {
     
     private var viewModel: ItemDetailViewModel!
     private var getItemDetails: GetItemDetailsSpy!
+    private var getItemFullDetails: GetItemFullDetailsSpy!
     
     private var testScheduler: TestScheduler!
     private var itemObserver: TestableObserver<Item>!
+    private var itemDetailsObserver: TestableObserver<ItemDetailResponse>!
     
     private let disposeBag = DisposeBag()
     
     override func setUp() {
         testScheduler = TestScheduler(initialClock: 0)
         itemObserver = testScheduler.createObserver(Item.self)
+        itemDetailsObserver = testScheduler.createObserver(ItemDetailResponse.self)
     }
     
     func test_GetItemDetails() {
@@ -38,12 +41,33 @@ class ItemDetailViewModelTests: XCTestCase {
         thenEmitItemDetails()
     }
     
+    func test_GetItemFullDetails() {
+        givenDependencies()
+        givenAViewModel()
+        
+        whenGetItemDetails()
+        
+        thenGetItemDetails()
+    }
+    
+    func test_EmitItemFullDetails() {
+        testScheduler.start()
+        givenDependencies()
+        givenAViewModel()
+        
+        viewModel.output.itemDetails.subscribe(itemDetailsObserver).disposed(by: disposeBag)
+        whenGetItemDetails()
+        
+        thenEmitItemFullDetails()
+    }
+    
     fileprivate func givenDependencies() {
         getItemDetails = GetItemDetailsSpy()
+        getItemFullDetails = GetItemFullDetailsSpy()
     }
     
     fileprivate func givenAViewModel() {
-        viewModel = ItemDetailViewModel(getItemDetailsAction: getItemDetails)
+        viewModel = ItemDetailViewModel(getItemDetailsAction: getItemDetails, getItemFullDetailsAction: getItemFullDetails)
     }
     
     fileprivate func whenGetItemDetails() {
@@ -56,6 +80,15 @@ class ItemDetailViewModelTests: XCTestCase {
     
     fileprivate func thenEmitItemDetails() {
         let events = itemObserver.events
+        XCTAssertEqual(events.count, 1)
+    }
+    
+    fileprivate func thenGetItemFullDetails() {
+        XCTAssertTrue(getItemFullDetails.hasExecuted)
+    }
+    
+    fileprivate func thenEmitItemFullDetails() {
+        let events = itemDetailsObserver.events
         XCTAssertEqual(events.count, 1)
     }
 
